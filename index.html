@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Philly 311 Heatmap Chart</title>
+    <style>
+      body { font-family: sans-serif; }
+
+      .inner-container {
+        width: 960px;
+        margin: 0 auto;
+      }
+
+      #chart { position: relative; }
+
+      rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;
+      }
+
+      text.mono {
+        font-size: 9pt;
+        font-family: Consolas, courier;
+        fill: #aaa;
+      }
+
+      text.axis-workweek {
+        fill: #000;
+      }
+
+      text.axis-worktime {
+        fill: #000;
+      }
+
+      .loader,
+      .loader:after {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+      }
+      .loader.hide { display: none; }
+      .loader {
+        position: absolute;
+        top: 36%;
+        right: 0;
+        left: 0;
+        display: block;
+        margin: 0 auto;
+        font-size: 10px;
+        text-indent: -9999em;
+        border-top: 1.1em solid rgba(000, 000, 000, 0.2);
+        border-right: 1.1em solid rgba(000, 000, 000, 0.2);
+        border-bottom: 1.1em solid rgba(000, 000, 000, 0.2);
+        border-left: 1.1em solid #000;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation: load8 1.1s infinite linear;
+        animation: load8 1.1s infinite linear;
+      }
+      @-webkit-keyframes load8 {
+        0% {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes load8 {
+        0% {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script src="http://d3js.org/d3.v4.js"></script>
+  </head>
+  <body>
+    <div class="inner-container">
+      <h1 class="title">Density of Philly 311 Requests by Day and Time</h1>
+      <h3 class="title--sub"></h3>
+      <div id="chart">
+        <div class="loader"></div>
+      </div>
+      <div class="chart-filter js-filter-form">
+        <label class="chart-filter__label">
+            <span class="chart-filter__label-text">Select Service Type</span> 
+            <!-- request ids: https://gist.github.com/mheadd/7171ea534e3e3afe8037f639b630c3d5 -->
+            <select type="text" id="chart-filter__service-type" class="chart-filter__select">
+                <option value="SR-LI21">Maintenance Residential</option>
+                <option value="SR-ST03">Rubbish/Recyclable Material Collection</option>
+                <option value="SR-ST02">Illegal Dumping</option>
+                <option value="SR-PD01">Abandoned Automobile</option>
+                <option value="SR-ST01">Street Defect</option>
+                <option value="SR-CL01">Graffiti Removal</option>
+                <option value="SR-ST18">Salting</option>
+                <option value="SR-ST04">Street Light Outage</option>
+                <option value="SR-CL02">Vacant Lot Clean-Up</option>
+                <option value="SR-LI27">Vacant House or Commercial</option>
+                <option value="SR-ST19">Sanitation / Dumpster Violation</option>
+                <option value="SR-ST25">Traffic Signal Emergency</option>
+                <option value="SR-LI06">Construction Site Task Force</option>
+                <option value="SR-PR08">Street Trees</option>
+                <option value="SR-FD02">Smoke Detector</option>
+                <option value="SR-LI03">Building Dangerous</option>
+                <option value="SR-LI02">Building Construction</option>
+                <option value="SR-MI01">Miscellaneous</option>
+                <option value="SR-ST16">Other (Streets)</option>
+                <option value="SR-LI28">Zoning Business</option>
+                <option value="SR-ST08">Complaint (Streets)</option>
+                <option value="SR-ST06">Alley Light Outage</option>
+                <option value="SR-WD01">Inlet Cleaning</option>
+                <option value="SR-ST09">Dangerous Sidewalk</option>
+                <option value="SR-LI22">No Heat (Residential)</option>
+                <option value="SR-PR01">Parks and Rec Safety and Maintenance</option>
+                <option value="SR-ST24">Traffic (Other)</option>
+                <option value="SR-LI16">Fire Residential or Commercial</option>
+                <option value="SR-LI19">License Residential</option>
+                <option value="SR-LI30">Zoning Residential</option>
+                <option value="SR-ST20">Shoveling</option>
+                <option value="SR-ST10">Dead Animal in Street</option>
+                <option value="SR-ST21">Stop Sign Repair</option>
+                <option value="SR-LI17">Infestation Residential</option>
+                <option value="SR-LI01">Boarding Room House</option>
+                <option value="SR-ST23">Street Paving</option>
+                <option value="SR-ST14">Manhole Cover</option>
+                <option value="SR-WD02">Hydrant Request</option>
+                <option value="SR-LI23">Other Dangerous</option>
+                <option value="SR-LI25">Tree Dangerous</option>
+                <option value="SR-ST13">Line Striping</option>
+                <option value="SR-PD02">Police Complaint</option>
+                <option value="SR-ST05">Abandoned Bike</option>
+                <option value="SR-FD01">Complaints against Fire or EMS</option>
+                <option value="SR-LI08">Daycare Residential or Commercial</option>
+                <option value="SR-ST15">Newsstand Outdoor Cafe</option>
+                <option value="SR-LI13">Emergency Air Conditioning</option>
+            </select>
+        </label>
+      </div>
+    </div>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
